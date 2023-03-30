@@ -2,3 +2,4 @@
 /VOC2028/ImageSets/*
 /VOC2028/JPEGImages/*
 *.pyc
+.vscode/*
