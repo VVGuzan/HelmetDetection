@@ -25,8 +25,8 @@ from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
 from torch.nn.functional import smooth_l1_loss, cross_entropy
 
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
+# from tkinter import Tk
+# from tkinter.filedialog import askopenfilename
 
 # set relative path
 ds_path = 'VOC2028/'
@@ -35,12 +35,12 @@ ds_path = 'VOC2028/'
 #base model 
 model_loaded = ssdlite320_mobilenet_v3_large( weights='DEFAULT',
                                       weights_backbone=MobileNet_V3_Large_Weights.IMAGENET1K_V1,
-                                      score_tresh=0.25
+                                      score_tresh=0.1
                                      )
 # model with needed head
 m_3class = ssdlite320_mobilenet_v3_large( num_classes=3,
                                           weights_backbone=None,
-                                          score_tresh=0.25,
+                                          score_tresh=0.1,
                                         )
 # change head
 model_loaded.head = m_3class.head
@@ -49,17 +49,17 @@ model_loaded.head = m_3class.head
 # filePath = askopenfilename()
 
 # ordinary path to best model
-best_path = ds_path + 'tmp/models/' + 'SSDLiteMobNetFreezBackbone_3class_best.pt'
+best_path = ds_path + 'tmp/models/' + 'SSDLiteMobNetFreezBackbone_3class_best(49ep).pt'
 
 # ask path to model
 model_path = input('Input full path of model to load:')
 
 # check existence of path
 if not os.path.exists(model_path):
-    print('Wrong path. The best model will be loaded:', best_path)
+    print('Wrong path. The best default model will be loaded:', best_path)
     model_path = best_path
 
-checkpoint = torch.load(model_path)
+checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
 model_loaded.load_state_dict(checkpoint['model_state_dict'])
 epoch = checkpoint['epoch']
 loss = checkpoint['loss']
