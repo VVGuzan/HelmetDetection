@@ -1,5 +1,7 @@
 /VOC2028/Annotations/*
 /VOC2028/ImageSets/*
 /VOC2028/JPEGImages/*
+/VOC2028/tmp/*
 *.pyc
 .vscode/*
+.mypy_cache/*
