@@ -1,6 +1,8 @@
 # Helmet detection project
 
-Final project of learning Data Science in SberUniversiry group DS14AN subgroup 5 - FrozenSet.
+Final project of learning Data Science in SberUniversiry group DS14AN subgroup 5 - FrozenSet. 
+
+Here ***only my personal part of project*** is presented (SSDLite and some additional model not presented in final group project). The final group project can be found at this [link](https://github.com/Danielnex7/frozenset).
 
 ## Task
 
@@ -52,4 +54,43 @@ with open(dataset_path + "helmet_valid_filenames.json", 'r') as f:
 
 All useful information (including bounding boxes data for each class and number of each object) obtained from xml annotations are collected in json format file named data.json and placed in folder VOC2028.
 
-## Model
+## Models
+
+### SSD Lite 
+
+As the basic simple model for the detection task the SSD Lite model was chosen (the additional models in the project were different versions of YOLO: from v5 up to last v8). The SSD Lite model is a "one-shot" model as YOLO but simpler. One can foud additional info at this [link](https://pytorch.org/vision/main/models/ssdlite.html), containing links to fundamental works.
+
+## Training
+
+### General review of training process
+
+The model was trained using the train part of dataset (defined early). The quality of model for each epoch was checked by calclulating losses (classification loss - cross-entropy and box loss - regression for box korners coordinates) and some metrics (map50, precision, recall, f1-score).
+
+The losses was calculated for train and validation part by buildin loss calculation proceedure provided by standard train proceedure (train mode of model).
+
+To calculate metrics on validation part of dataset additional library called `torchmetrics` was used.
+
+Whole proceedure of train (with metrics calculation) is presented in notebook `SSDLite_trai_val_metrics.ipynb`.
+
+### Trained models 
+
+Three different models of SSD Lite (depending of freezed/trainable layers) was trained:
+1. Fully trainable model
+2. Only "head" layers are trainable
+3. Only deep backbone layers (Mobile Net) freezed
+
+### Choose the best model
+
+For each case (1 - 3) the best model was chosen by metrics values (map50).
+
+## Resolved difficulties
+
+### At training stage
+
+#### Data transformation
+
+#### Losses calculation
+
+### At validation stage
+
+#### Metrics calculation
