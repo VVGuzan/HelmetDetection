@@ -1,3 +1,4 @@
+test_images_ssdlite_result/*
 /VOC2028/Annotations/*
 /VOC2028/ImageSets/*
 /VOC2028/JPEGImages/*
