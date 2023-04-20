@@ -25,9 +25,6 @@ from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
 from torch.nn.functional import smooth_l1_loss, cross_entropy
 
-# from tkinter import Tk
-# from tkinter.filedialog import askopenfilename
-
 # set relative path
 ds_path = 'VOC2028/'
 
@@ -44,9 +41,6 @@ m_3class = ssdlite320_mobilenet_v3_large( num_classes=3,
                                         )
 # change head
 model_loaded.head = m_3class.head
-
-# Tk().withdraw() # Added so Tk window doesn't appear on opening the dialog
-# filePath = askopenfilename()
 
 # ordinary path to best model
 best_path = ds_path + 'tmp/models/' + 'SSDLiteMobNetFreezBackbone_3class_best(49ep).pt'
@@ -80,7 +74,7 @@ colors_dict={'1': 'red',
 flag = True
 while flag:
     print()
-    img_path = input('Input full path to image for prediction (to exi input 0):')
+    img_path = input('Input full path to image for prediction (to exit input 0):')
     if img_path == '0':
         flag = False
         break
